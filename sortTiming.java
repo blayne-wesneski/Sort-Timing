@@ -4,31 +4,41 @@ public class sortTiming {
 
     public static void main(String[] args) {
 
+        int[][] randomArrs = new int[22][];
+        for (int i = 0; i < randomArrs.length; i++) {
+
+            if (i + 1 * 10 <= 10000) {
+                randomArrs[i] = randomArrs(1000, i + 1 * 10);
+            } else if (i + 1 * 10 > 10000) {
+                randomArrs[i] = randomArrs(1000, i * 10000);
+            }
+
+        }
+
         // TODO Fix this ridiculous mess. Probably use a 2D array I think? But how do I
         // set the length of the arrays properly in that case? I wish I wasn't so bad at
         // math.
-        int[] randomArr = randomArrs(1000, 10);
-        int[] randomArr2 = randomArrs(1000, 100);
-        int[] randomArr3 = randomArrs(1000, 1000);
-        int[] randomArr4 = randomArrs(1000, 10000);
-        int[] randomArr5 = randomArrs(1000, 20000);
-        int[] randomArr6 = randomArrs(1000, 30000);
-        int[] randomArr7 = randomArrs(1000, 40000);
-        int[] randomArr8 = randomArrs(1000, 50000);
-        int[] randomArr9 = randomArrs(1000, 60000);
-        int[] randomArr10 = randomArrs(1000, 70000);
-        int[] randomArr11 = randomArrs(1000, 80000);
-        int[] randomArr12 = randomArrs(1000, 90000);
-        int[] randomArr13 = randomArrs(1000, 100000);
-        int[] randomArr14 = randomArrs(1000, 110000);
-        int[] randomArr15 = randomArrs(1000, 120000);
-        int[] randomArr16 = randomArrs(1000, 130000);
-        int[] randomArr17 = randomArrs(1000, 140000);
-        int[] randomArr18 = randomArrs(1000, 150000);
-        int[] randomArr19 = randomArrs(1000, 160000);
-        int[] randomArr20 = randomArrs(1000, 170000);
-        int[] randomArr21 = randomArrs(1000, 180000);
-        int[] randomArr22 = randomArrs(1000, 190000);
+        int[] randomArr = copyArray(randomArrs[0]);
+        int[] randomArr2 = copyArray(randomArrs[1]);
+        int[] randomArr3 = copyArray(randomArrs[2]);
+        int[] randomArr4 = copyArray(randomArrs[3]);
+        int[] randomArr5 = copyArray(randomArrs[4]);
+        int[] randomArr6 = copyArray(randomArrs[5]);
+        int[] randomArr7 = copyArray(randomArrs[6]);
+        int[] randomArr8 = copyArray(randomArrs[7]);
+        int[] randomArr9 = copyArray(randomArrs[8]);
+        int[] randomArr10 = copyArray(randomArrs[9]);
+        int[] randomArr11 = copyArray(randomArrs[10]);
+        int[] randomArr12 = copyArray(randomArrs[11]);
+        int[] randomArr13 = copyArray(randomArrs[12]);
+        int[] randomArr14 = copyArray(randomArrs[13]);
+        int[] randomArr15 = copyArray(randomArrs[14]);
+        int[] randomArr16 = copyArray(randomArrs[15]);
+        int[] randomArr17 = copyArray(randomArrs[16]);
+        int[] randomArr18 = copyArray(randomArrs[17]);
+        int[] randomArr19 = copyArray(randomArrs[18]);
+        int[] randomArr20 = copyArray(randomArrs[19]);
+        int[] randomArr21 = copyArray(randomArrs[20]);
 
         // Good lord it got worse. It definitely works... but it definitely sucks.
 
@@ -53,7 +63,6 @@ public class sortTiming {
         bubble(randomArr19, 19, 22);
         bubble(randomArr20, 20, 22);
         bubble(randomArr21, 21, 22);
-        bubble(randomArr22, 22, 22);
 
     }
 
