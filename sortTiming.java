@@ -10,7 +10,7 @@ public class sortTiming {
          * I think I figured out the math on this loop. I'm not
          * really sure what I was trying to achieve with my original math here. After I
          * wrote it down and wasted an embarassing amount of scrap paper I got it
-         * figured out.I knew what I needed to do code wise, I just got caught on the
+         * figured out. I knew what I needed to do code wise, I just got caught on the
          * math. I'm admittedly pretty bad at math.
          */
         for (int i = 0; i < randomArrs.length; i++) {
@@ -39,8 +39,16 @@ public class sortTiming {
         }
 
         // invoke the sorts
-        for (int i = 0; i < randomArrs.length; i++) {
-            bubble(randomArrs[i], i + 1, randomArrs.length);
+        /*
+         * for (int i = 0; i < randomArrs.length; i++) {
+         * bubble(randomArrs[i], i + 1, randomArrs.length);
+         * }
+         * for (int i = 0; i < randomArrs1.length; i++) {
+         * selection(randomArrs1[i], i + 1, randomArrs1.length);
+         * }
+         */
+        for (int i = 0; i < randomArrs2.length; i++) {
+            merge(randomArrs2[i], i + 1, randomArrs2.length);
         }
     }
 
@@ -87,6 +95,7 @@ public class sortTiming {
 
     // Bubble Sort
     public static void bubble(int[] arr, int iteration, int maxIterations) {
+
         int n = arr.length;
 
         long startTime = System.nanoTime();
@@ -105,6 +114,45 @@ public class sortTiming {
         long endTime = System.nanoTime();
 
         System.out.println("Bubble Sort: case " + iteration + " of " + maxIterations + ", " + n + " elements, "
+                + (endTime - startTime) / 1000000 + "ms");
+    }
+
+    // Selection Sort
+    public static void selection(int[] arr, int iteration, int maxIterations) {
+
+        int n = arr.length;
+
+        long startTime = System.nanoTime();
+
+        for (int i = 0; i < n; i++) {
+            int current = i;
+
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] < arr[current]) {
+                    current = j;
+                }
+            }
+            swap(i, current, arr);
+        }
+
+        long endTime = System.nanoTime();
+
+        System.out.println("Selection Sort: case " + iteration + " of " + maxIterations + ", " + n + " elements, "
+                + (endTime - startTime) / 1000000 + "ms");
+    }
+
+    public static void merge(int[] arr, int iteration, int maxIterations) {
+        int n = arr.length;
+
+        long startTime = System.nanoTime();
+
+        // This gets a little angry in my IDE, but I don't need to use this in any
+        // meaningful way, so I will ignore it and pretend it doesn't exist.
+        new mergeSort(arr);
+
+        long endTime = System.nanoTime();
+
+        System.out.println("Merge Sort: case " + iteration + " of " + maxIterations + ", " + n + " elements, "
                 + (endTime - startTime) / 1000000 + "ms");
     }
 }
