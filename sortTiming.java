@@ -39,16 +39,17 @@ public class sortTiming {
         }
 
         // invoke the sorts
-        /*
-         * for (int i = 0; i < randomArrs.length; i++) {
-         * bubble(randomArrs[i], i + 1, randomArrs.length);
-         * }
-         * for (int i = 0; i < randomArrs1.length; i++) {
-         * selection(randomArrs1[i], i + 1, randomArrs1.length);
-         * }
-         */
+        for (int i = 0; i < randomArrs.length; i++) {
+            bubble(randomArrs[i], i + 1, randomArrs.length);
+        }
+        for (int i = 0; i < randomArrs1.length; i++) {
+            selection(randomArrs1[i], i + 1, randomArrs1.length);
+        }
         for (int i = 0; i < randomArrs2.length; i++) {
             merge(randomArrs2[i], i + 1, randomArrs2.length);
+        }
+        for (int i = 0; i < randomArrs3.length; i++) {
+            radix(randomArrs3[i], i + 1, randomArrs3.length);
         }
     }
 
@@ -146,13 +147,25 @@ public class sortTiming {
 
         long startTime = System.nanoTime();
 
-        // This gets a little angry in my IDE, but I don't need to use this in any
-        // meaningful way, so I will ignore it and pretend it doesn't exist.
-        new mergeSort(arr);
+        new mergeSort(arr); // This gets a little angry in my IDE, but I don't need to use this in any
+                            // meaningful way, so I will ignore it and pretend it doesn't exist.
 
         long endTime = System.nanoTime();
 
         System.out.println("Merge Sort: case " + iteration + " of " + maxIterations + ", " + n + " elements, "
+                + (endTime - startTime) / 1000000 + "ms");
+    }
+
+    public static void radix(int[] arr, int iteration, int maxIterations) {
+        int n = arr.length;
+
+        long startTime = System.nanoTime();
+
+        new radixSort(arr);
+
+        long endTime = System.nanoTime();
+
+        System.out.println("Radix Sort: case " + iteration + " of " + maxIterations + ", " + n + " elements, "
                 + (endTime - startTime) / 1000000 + "ms");
     }
 }
