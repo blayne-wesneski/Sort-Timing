@@ -1,6 +1,21 @@
 package Assignment1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class sortTiming {
+
+    private static Map<String, Integer> sortMap = new HashMap<>();
+    private static int[][][] cases;
+
+    static {
+        sortMap.put("Bubble", 0);
+        sortMap.put("Selection", 1);
+        sortMap.put("Insertion", 2);
+        sortMap.put("Merge", 3);
+        sortMap.put("Quick", 4);
+        sortMap.put("Radix", 5);
+    }
 
     public static void main(String[] args) {
 
@@ -37,6 +52,10 @@ public class sortTiming {
             randomArrs4[i] = copyArray(randomArrs[i]);
             randomArrs5[i] = copyArray(randomArrs[i]);
         }
+
+        int maxIterations = randomArrs.length;
+
+        initializeCases(maxIterations);
 
         // invoke the sorts
         for (int i = 0; i < randomArrs.length; i++) {
@@ -94,6 +113,27 @@ public class sortTiming {
         return new_array;
     }
 
+    /*
+     * This is way overkill for this assignment, but I mostly wanted to do it to
+     * challenge myself. This uses a map to store the information related to the
+     * sorts in a 3 dimensional array. The first key is the sort type, the second is
+     * the number of iterations, and the third is the number of elements and the
+     * time it took to sort them. Now I just have to implement the last two sorts
+     * and print it to a CSV and I should be good to go.
+     */
+
+    public static void initializeCases(int maxIterations) {
+        cases = new int[sortMap.size()][maxIterations + 1][2];
+    }
+
+    public static void storeCases(String sort, int iteration, int maxIterations, int elements, int time) {
+
+        cases[sortMap.get(sort)][iteration][0] = elements;
+
+        cases[sortMap.get(sort)][iteration][1] = time;
+
+    }
+
     // Bubble Sort
     public static void bubble(int[] arr, int iteration, int maxIterations) {
 
@@ -114,8 +154,11 @@ public class sortTiming {
 
         long endTime = System.nanoTime();
 
-        System.out.println("Bubble Sort: case " + iteration + " of " + maxIterations + ", " + n + " elements, "
-                + (endTime - startTime) / 1000000 + "ms");
+        int time = (int) ((endTime - startTime) / 1000000);
+
+        storeCases("Bubble", iteration, maxIterations, n, time);
+
+        System.out.println("Bubble Sort: " + time + "ms");
     }
 
     // Selection Sort
@@ -138,8 +181,11 @@ public class sortTiming {
 
         long endTime = System.nanoTime();
 
-        System.out.println("Selection Sort: case " + iteration + " of " + maxIterations + ", " + n + " elements, "
-                + (endTime - startTime) / 1000000 + "ms");
+        int time = (int) ((endTime - startTime) / 1000000);
+
+        storeCases("Selection", iteration, maxIterations, n, time);
+
+        System.out.println("Selection Sort: " + time + "ms");
     }
 
     public static void merge(int[] arr, int iteration, int maxIterations) {
@@ -147,13 +193,15 @@ public class sortTiming {
 
         long startTime = System.nanoTime();
 
-        new mergeSort(arr); // This gets a little angry in my IDE, but I don't need to use this in any
-                            // meaningful way, so I will ignore it and pretend it doesn't exist.
+        new mergeSort(arr);
 
         long endTime = System.nanoTime();
 
-        System.out.println("Merge Sort: case " + iteration + " of " + maxIterations + ", " + n + " elements, "
-                + (endTime - startTime) / 1000000 + "ms");
+        int time = (int) ((endTime - startTime) / 1000000);
+
+        storeCases("Merge", iteration, maxIterations, n, time);
+
+        System.out.println("Merge Sort: " + time + "ms");
     }
 
     public static void radix(int[] arr, int iteration, int maxIterations) {
@@ -165,7 +213,10 @@ public class sortTiming {
 
         long endTime = System.nanoTime();
 
-        System.out.println("Radix Sort: case " + iteration + " of " + maxIterations + ", " + n + " elements, "
-                + (endTime - startTime) / 1000000 + "ms");
+        int time = (int) ((endTime - startTime) / 1000000);
+
+        storeCases("Radix", iteration, maxIterations, n, time);
+
+        System.out.println("Radix Sort: " + time + "ms");
     }
 }
