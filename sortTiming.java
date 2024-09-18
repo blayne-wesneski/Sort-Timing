@@ -5,16 +5,24 @@ import java.util.Map;
 
 public class sortTiming {
 
-    private static Map<String, Integer> sortMap = new HashMap<>();
+    private static Map<String, Integer> sortMapValue = new HashMap<>();
+    private static Map<Integer, String> sortMapKey = new HashMap<>();
     private static int[][][] cases;
 
     static {
-        sortMap.put("Bubble", 0);
-        sortMap.put("Selection", 1);
-        sortMap.put("Insertion", 2);
-        sortMap.put("Merge", 3);
-        sortMap.put("Quick", 4);
-        sortMap.put("Radix", 5);
+        sortMapValue.put("Bubble", 0);
+        sortMapValue.put("Selection", 1);
+        sortMapValue.put("Insertion", 2);
+        sortMapValue.put("Merge", 3);
+        sortMapValue.put("Quick", 4);
+        sortMapValue.put("Radix", 5);
+
+        sortMapKey.put(0, "Bubble");
+        sortMapKey.put(1, "Selection");
+        sortMapKey.put(2, "Insertion");
+        sortMapKey.put(3, "Merge");
+        sortMapKey.put(4, "Quick");
+        sortMapKey.put(5, "Radix");
     }
 
     public static void main(String[] args) {
@@ -65,11 +73,16 @@ public class sortTiming {
             selection(randomArrs1[i], i + 1, randomArrs1.length);
         }
         for (int i = 0; i < randomArrs2.length; i++) {
-            merge(randomArrs2[i], i + 1, randomArrs2.length);
+            insertion(randomArrs2[i], i + 1, randomArrs2.length);
         }
         for (int i = 0; i < randomArrs3.length; i++) {
-            radix(randomArrs3[i], i + 1, randomArrs3.length);
+            merge(randomArrs3[i], i + 1, randomArrs3.length);
         }
+        for (int i = 0; i < randomArrs5.length; i++) {
+            radix(randomArrs5[i], i + 1, randomArrs5.length);
+        }
+
+        printCases();
     }
 
     public static void printArray(int[] array) {
@@ -123,14 +136,33 @@ public class sortTiming {
      */
 
     public static void initializeCases(int maxIterations) {
-        cases = new int[sortMap.size()][maxIterations + 1][2];
+        cases = new int[sortMapValue.size()][maxIterations][2];
     }
 
     public static void storeCases(String sort, int iteration, int maxIterations, int elements, int time) {
 
-        cases[sortMap.get(sort)][iteration][0] = elements;
+        cases[sortMapValue.get(sort)][iteration - 1][0] = elements;
 
-        cases[sortMap.get(sort)][iteration][1] = time;
+        cases[sortMapValue.get(sort)][iteration - 1][1] = time;
+
+    }
+
+    public static void printCases() {
+
+        for (int i = 0; i < cases.length; i++) {
+            System.out.println(sortMapKey.get(i) + " Sort: ");
+            for (int j = 0; j < cases[i].length; j++) {
+                System.out.print("Case " + (j) + ": ");
+                for (int k = 0; k < cases[i][j].length; k++) {
+                    if (k == 0) {
+                        System.out.print(cases[i][j][k] + " elements, ");
+                    } else {
+                        System.out.print(cases[i][j][k] + "ms");
+                    }
+                }
+                System.out.println();
+            }
+        }
 
     }
 
@@ -158,6 +190,7 @@ public class sortTiming {
 
         storeCases("Bubble", iteration, maxIterations, n, time);
 
+        // Debug code, remove or modify later
         System.out.println("Bubble Sort: " + time + "ms");
     }
 
@@ -185,7 +218,39 @@ public class sortTiming {
 
         storeCases("Selection", iteration, maxIterations, n, time);
 
+        // Debug code, remove or modify later
         System.out.println("Selection Sort: " + time + "ms");
+    }
+
+    // Insertion sort
+    public static void insertion(int[] arr, int iteration, int maxIterations) {
+
+        int n = arr.length;
+
+        long startTime = System.nanoTime();
+
+        for (int i = 0; i < arr.length; i++) {
+
+            int current = arr[i];
+            int j = i - 1;
+
+            while (j >= 0 && arr[j] > current) {
+                // Shift to the right
+                arr[j + 1] = arr[j];
+                j -= 1;
+            }
+
+            arr[j + 1] = current;
+        }
+
+        long endTime = System.nanoTime();
+
+        int time = (int) ((endTime - startTime) / 1000000);
+
+        storeCases("Insertion", iteration, maxIterations, n, time);
+
+        // Debug code, remove or modify later
+        System.out.println("Insertion Sort: " + time + "ms");
     }
 
     public static void merge(int[] arr, int iteration, int maxIterations) {
@@ -201,6 +266,7 @@ public class sortTiming {
 
         storeCases("Merge", iteration, maxIterations, n, time);
 
+        // Debug code, remove or modify later
         System.out.println("Merge Sort: " + time + "ms");
     }
 
@@ -217,6 +283,7 @@ public class sortTiming {
 
         storeCases("Radix", iteration, maxIterations, n, time);
 
+        // Debug code, remove or modify later
         System.out.println("Radix Sort: " + time + "ms");
     }
 }
