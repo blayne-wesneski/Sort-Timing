@@ -65,22 +65,41 @@ public class sortTiming {
 
         initializeCases(maxIterations);
 
+        long startTimeTotal = System.nanoTime();
+
         // invoke the sorts
+        System.out.println("Bubble Sort in Progress... ");
         for (int i = 0; i < randomArrs.length; i++) {
             bubble(randomArrs[i], i + 1, randomArrs.length);
         }
+        System.out.println("Bubble Sort Complete! ");
+        System.out.println("Selection Sort in Progress... ");
         for (int i = 0; i < randomArrs1.length; i++) {
             selection(randomArrs1[i], i + 1, randomArrs1.length);
         }
+        System.out.println("Selection Sort Complete! ");
+        System.out.println("Insertion Sort in Progress... ");
         for (int i = 0; i < randomArrs2.length; i++) {
             insertion(randomArrs2[i], i + 1, randomArrs2.length);
         }
+        System.out.println("Insertion Sort Complete! ");
+        System.out.println("Merge Sort in Progress... ");
         for (int i = 0; i < randomArrs3.length; i++) {
             merge(randomArrs3[i], i + 1, randomArrs3.length);
         }
+        System.out.println("Merge Sort Complete! ");
+        System.out.println("Radix Sort in Progress... ");
         for (int i = 0; i < randomArrs5.length; i++) {
             radix(randomArrs5[i], i + 1, randomArrs5.length);
         }
+        System.out.println("Radix Sort Complete! ");
+
+        long endTimeTotal = System.nanoTime();
+
+        System.out.println("All sorts complete! Total time: " + ((endTimeTotal - startTimeTotal) / 1000000) / 1000 + " seconds");
+
+        System.out.println("Printing Results...");
+        System.out.println();
 
         printCases();
     }
@@ -189,9 +208,6 @@ public class sortTiming {
         int time = (int) ((endTime - startTime) / 1000000);
 
         storeCases("Bubble", iteration, maxIterations, n, time);
-
-        // Debug code, remove or modify later
-        System.out.println("Bubble Sort: " + time + "ms");
     }
 
     // Selection Sort
@@ -217,9 +233,6 @@ public class sortTiming {
         int time = (int) ((endTime - startTime) / 1000000);
 
         storeCases("Selection", iteration, maxIterations, n, time);
-
-        // Debug code, remove or modify later
-        System.out.println("Selection Sort: " + time + "ms");
     }
 
     // Insertion sort
@@ -248,9 +261,6 @@ public class sortTiming {
         int time = (int) ((endTime - startTime) / 1000000);
 
         storeCases("Insertion", iteration, maxIterations, n, time);
-
-        // Debug code, remove or modify later
-        System.out.println("Insertion Sort: " + time + "ms");
     }
 
     public static void merge(int[] arr, int iteration, int maxIterations) {
@@ -265,9 +275,6 @@ public class sortTiming {
         int time = (int) ((endTime - startTime) / 1000000);
 
         storeCases("Merge", iteration, maxIterations, n, time);
-
-        // Debug code, remove or modify later
-        System.out.println("Merge Sort: " + time + "ms");
     }
 
     public static void radix(int[] arr, int iteration, int maxIterations) {
@@ -282,8 +289,5 @@ public class sortTiming {
         int time = (int) ((endTime - startTime) / 1000000);
 
         storeCases("Radix", iteration, maxIterations, n, time);
-
-        // Debug code, remove or modify later
-        System.out.println("Radix Sort: " + time + "ms");
     }
 }
