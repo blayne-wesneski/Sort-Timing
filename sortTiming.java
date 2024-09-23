@@ -68,7 +68,7 @@ public class sortTiming {
         long startTimeTotal = System.nanoTime();
 
         // invoke the sorts
-        System.out.println("Bubble Sort in Progress... ");
+       System.out.println("Bubble Sort in Progress... ");
         for (int i = 0; i < randomArrs.length; i++) {
             bubble(randomArrs[i], i + 1, randomArrs.length);
         }
@@ -88,6 +88,27 @@ public class sortTiming {
             merge(randomArrs3[i], i + 1, randomArrs3.length);
         }
         System.out.println("Merge Sort Complete! ");
+
+        for (int i = 0; i < randomArrs4.length; i++) {
+            
+            int[] tempArray = copyArray(randomArrs4[i]);
+            
+            int n = tempArray.length;
+
+
+            System.out.println(n - 1);
+
+            long startTime = System.nanoTime();
+
+            quickSort(tempArray, 0, n - 1);
+
+            long endTime = System.nanoTime();
+
+            int time = (int) ((endTime - startTime) / 1000000);
+
+            storeCases("Quick", i + 1, maxIterations, n, time);
+        }
+
         System.out.println("Radix Sort in Progress... ");
         for (int i = 0; i < randomArrs5.length; i++) {
             radix(randomArrs5[i], i + 1, randomArrs5.length);
@@ -96,7 +117,8 @@ public class sortTiming {
 
         long endTimeTotal = System.nanoTime();
 
-        System.out.println("All sorts complete! Total time: " + ((endTimeTotal - startTimeTotal) / 1000000) / 1000 + " seconds");
+        System.out.println(
+                "All sorts complete! Total time: " + ((endTimeTotal - startTimeTotal) / 1000000) / 1000 + " seconds");
 
         System.out.println("Printing Results...");
         System.out.println();
@@ -275,6 +297,30 @@ public class sortTiming {
         int time = (int) ((endTime - startTime) / 1000000);
 
         storeCases("Merge", iteration, maxIterations, n, time);
+    }
+
+    public static void quickSort(int[] array, int left, int right) {
+        // base case
+        if (left >= right) {
+            return;
+        }
+        int pivot = array[right];
+        int counter = left;
+
+        for (int i = left; i < right; i++) {
+            if (array[i] < pivot) {
+                swap(i, counter, array);
+                counter++;
+            }
+        }
+
+        swap(counter, right, array);
+
+        //RECURSE
+        quickSort(array, left, counter-1);
+        quickSort(array, counter + 1, right);
+        
+        return;
     }
 
     public static void radix(int[] arr, int iteration, int maxIterations) {
