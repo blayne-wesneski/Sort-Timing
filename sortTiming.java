@@ -68,35 +68,32 @@ public class sortTiming {
         long startTimeTotal = System.nanoTime();
 
         // invoke the sorts
-       System.out.println("Bubble Sort in Progress... ");
+       System.out.println("Bubble Sort in progress... ");
         for (int i = 0; i < randomArrs.length; i++) {
             bubble(randomArrs[i], i + 1, randomArrs.length);
         }
-        System.out.println("Bubble Sort Complete! ");
-        System.out.println("Selection Sort in Progress... ");
+        System.out.println("Bubble Sort complete! ");
+        System.out.println("Selection Sort in progress... ");
         for (int i = 0; i < randomArrs1.length; i++) {
             selection(randomArrs1[i], i + 1, randomArrs1.length);
         }
-        System.out.println("Selection Sort Complete! ");
-        System.out.println("Insertion Sort in Progress... ");
+        System.out.println("Selection Sort complete! ");
+        System.out.println("Insertion Sort in progress... ");
         for (int i = 0; i < randomArrs2.length; i++) {
             insertion(randomArrs2[i], i + 1, randomArrs2.length);
         }
-        System.out.println("Insertion Sort Complete! ");
-        System.out.println("Merge Sort in Progress... ");
+        System.out.println("Insertion Sort complete! ");
+        System.out.println("Merge Sort in progress... ");
         for (int i = 0; i < randomArrs3.length; i++) {
             merge(randomArrs3[i], i + 1, randomArrs3.length);
         }
-        System.out.println("Merge Sort Complete! ");
-
+        System.out.println("Merge Sort complete! ");
+        System.out.println("Quick Sort in progress... ");
         for (int i = 0; i < randomArrs4.length; i++) {
             
             int[] tempArray = copyArray(randomArrs4[i]);
             
             int n = tempArray.length;
-
-
-            System.out.println(n - 1);
 
             long startTime = System.nanoTime();
 
@@ -108,8 +105,8 @@ public class sortTiming {
 
             storeCases("Quick", i + 1, maxIterations, n, time);
         }
-
-        System.out.println("Radix Sort in Progress... ");
+        System.out.println("Quick Sort complete!");
+        System.out.println("Radix Sort in progress... ");
         for (int i = 0; i < randomArrs5.length; i++) {
             radix(randomArrs5[i], i + 1, randomArrs5.length);
         }
