@@ -2,6 +2,9 @@ package Assignment1;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class sortTiming {
 
@@ -68,7 +71,7 @@ public class sortTiming {
         long startTimeTotal = System.nanoTime();
 
         // invoke the sorts
-       System.out.println("Bubble Sort in progress... ");
+        System.out.println("Bubble Sort in progress... ");
         for (int i = 0; i < randomArrs.length; i++) {
             bubble(randomArrs[i], i + 1, randomArrs.length);
         }
@@ -90,14 +93,14 @@ public class sortTiming {
         System.out.println("Merge Sort complete! ");
         System.out.println("Quick Sort in progress... ");
         for (int i = 0; i < randomArrs4.length; i++) {
-            
+
             int[] tempArray = copyArray(randomArrs4[i]);
-            
+
             int n = tempArray.length;
 
             long startTime = System.nanoTime();
 
-            quickSort(tempArray, 0, n - 1);
+            quick(tempArray, 0, n - 1);
 
             long endTime = System.nanoTime();
 
@@ -121,6 +124,7 @@ public class sortTiming {
         System.out.println();
 
         printCases();
+        writeCases("results.csv");
     }
 
     public static void printArray(int[] array) {
@@ -200,6 +204,24 @@ public class sortTiming {
                 }
                 System.out.println();
             }
+        }
+
+    }
+
+    public static void writeCases(String filename) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+            writer.println("Sort,Case,Elements,Time (0ms)");
+
+            for (int i = 0; i < cases.length; i++) {
+                String sort = sortMapKey.get(i);
+                for (int j = 0; j < cases[i].length; j++) {
+                    int elements = cases[i][j][0];
+                    int time = cases[i][j][1];
+                    writer.printf("%s,%d,%d,%d%n", sort, j, elements, time);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
         }
 
     }
@@ -296,7 +318,7 @@ public class sortTiming {
         storeCases("Merge", iteration, maxIterations, n, time);
     }
 
-    public static void quickSort(int[] array, int left, int right) {
+    public static void quick(int[] array, int left, int right) {
         // base case
         if (left >= right) {
             return;
@@ -313,10 +335,10 @@ public class sortTiming {
 
         swap(counter, right, array);
 
-        //RECURSE
-        quickSort(array, left, counter-1);
-        quickSort(array, counter + 1, right);
-        
+        // RECURSE
+        quick(array, left, counter - 1);
+        quick(array, counter + 1, right);
+
         return;
     }
 
