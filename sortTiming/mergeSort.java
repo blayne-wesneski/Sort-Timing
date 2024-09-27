@@ -1,4 +1,4 @@
-package Assignment1;
+package sortTiming;
 
 public class mergeSort {
     private final int[] array, temp;
